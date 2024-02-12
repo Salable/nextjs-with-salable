@@ -1,43 +1,51 @@
-import { use } from 'react'
-import { getServerSession } from 'next-auth/next'
-import { Salable } from '@salable/node-sdk'
-import SignIn from './components/SignIn'
-import PricingTable from './components/PricingTable'
+import { use } from "react";
+import { getServerSession } from "next-auth/next";
+import { Salable } from "@salable/node-sdk";
+import SignIn from "./components/SignIn";
+import PricingTable from "./components/PricingTable";
+import Counter from "./components/Counter";
+import SignOut from "./components/SignOut";
 
 async function getLicensesForUser(username?: string | null) {
-  const { licenses } = new Salable(process.env.SALABLE_API_KEY as string)
+  const { licenses } = new Salable(process.env.SALABLE_API_KEY as string);
   if (!username) {
-    return
+    return;
   }
 
   try {
-    const capabilitiesCheck = await licenses.check(process.env.SALABLE_PLAN_ID as string, [
-      username,
-    ])
+    const capabilitiesCheck = await licenses.check(
+      process.env.SALABLE_PLAN_ID as string,
+      [username],
+    );
 
-    return capabilitiesCheck
+    return capabilitiesCheck;
   } catch (error) {
-    return null
+    return null;
   }
 }
 
-
 export default function Home() {
-  const data = use(getServerSession())
-  const permissions = use(getLicensesForUser(data?.user?.email))
+  const data = use(getServerSession());
+  const permissions = use(getLicensesForUser(data?.user?.email));
 
-  const hasPermission = permissions?.capabilities.includes('SomeCapability')
+  const canSeeCounter = permissions?.capabilities.includes("Counter");
 
   return (
-    <main>
-      <div>
-        {data ? hasPermission ? (<h1>You are on the Pro plan!</h1>) : (
-          <PricingTable email={data?.user?.email!} />
-        )
-          : (
-            <SignIn />
-          )}
+    <main className="h-full">
+      <div className="h-full flex justify-center items-center">
+        {data ? (
+          canSeeCounter ? (
+            <>
+              <Counter />
+              <SignOut />
+            </>
+          ) : (
+            <PricingTable email={data?.user?.email!} />
+          )
+        ) : (
+          <SignIn />
+        )}
       </div>
     </main>
-  )
+  );
 }

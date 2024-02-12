@@ -3,23 +3,26 @@
 Hi 👋 This project is the simplest way to get started with Salable in a Next.js
 project. If you want to know more about Salable, check out the following:
 
-* [Documentation](https://docs.salable.app/)
-* [Website](https://www.salable.app/)
+- [Documentation](https://docs.salable.app/)
+- [Website](https://www.salable.app/)
 
 The template is provided as a perfect "leap off" point to create your own Next
 application with Salable. There is basic code in place to integrate the
 pricing table, accept payment, and authorise based on the user's license
-capabilities.
+capabilities. When the user is licensed (and has the `Counter` capability)
+they're able to see a basic `<Counter />` component.
 
 ### What is included?
 
-* Authentication 🔒 provided by [Auth.js](https://authjs.dev/)
-(formerly NextAuth).
-  * By default we have set up the `GithubProvider` but you can use any of the
-  [supported providers](https://next-auth.js.org/providers/).
-* [Prisma] ORM (w/ the associated Auth.js adapter).
-* TailwindCSS for styling 💅
-* ESLint.
+- Authentication 🔒 provided by [Auth.js](https://authjs.dev/)
+  (formerly NextAuth).
+  - By default we have set up the `GithubProvider` but you can use any of the
+    [supported providers](https://next-auth.js.org/providers/).
+    - If you need to set up the GitHub OAuth app, read the
+      [Creating an OAuth App documentation](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
+- [Prisma] ORM (w/ the associated Auth.js adapter).
+- TailwindCSS for styling 💅
+- ESLint.
 
 ### Getting Started
 
